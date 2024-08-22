@@ -52,9 +52,9 @@ def err_handler(slave: int, status: Status, msg: str) -> None:
 
 autd = (Controller.builder()
                 .add_device(AUTD3([0.0, 0.0, 0.0]))
-                .add_device(AUTD3([AUTD3.device_width()+1,0.0,0.0]))
+                .add_device(AUTD3([AUTD3.device_width(),0.0,0.0]))
                 .add_device(AUTD3([0.0,AUTD3.device_height(),0.0]))
-                .add_device(AUTD3([AUTD3.device_width()+1,AUTD3.device_height(),0.0]))
+                .add_device(AUTD3([AUTD3.device_width(),AUTD3.device_height(),0.0]))
                 .open(SOEM.builder().with_err_handler(err_handler),))
 autd.send(ConfigureSilencer.disable())
 
@@ -64,14 +64,13 @@ m_200 = Sine(200)
 m_s = Static()
 m = Static()
 
-center = np.array([AUTD3.device_width() -10.0, -10.0, 240.0])
-center = autd.geometry.center + np.array([0,0, 150])
+center = autd.geometry.center + np.array([0,0, 255])
 g = Focus(center).with_intensity(255)
 g_off = Focus(center).with_intensity(0)
 
 
 # COMポートの設定
-ser = serial.Serial('COM3', 115200, timeout=1, bytesize=serial.EIGHTBITS, stopbits=serial.STOPBITS_ONE, parity=serial.PARITY_NONE)
+ser = serial.Serial('COM7', 115200, timeout=1, bytesize=serial.EIGHTBITS, stopbits=serial.STOPBITS_ONE, parity=serial.PARITY_NONE)
 
 if ser.isOpen():
     print("COM3 port found.")
@@ -120,13 +119,10 @@ file_path = r"./" + name + "/session"+session + ".csv"
 with open(file_path, 'a') as file:
     write_timestamp(file)
 
-
-listener.start()
-
 # 3秒間の遅延を挿入する
 time.sleep(3)
 
-
+listener.start()
 
 for trial in trials:
     if trial==0:
@@ -152,7 +148,7 @@ for trial in trials:
         radius = 7.5
         points_num = int(12*7.5)
         stm = FocusSTM.from_freq(5).add_foci_from_iter([
-                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 150])
+                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 255])
                 for i in range(points_num) #一方向に二回
             ]).with_loop_behavior(LoopBehavior.infinite()).with_segment(Segment.S1, update_segment=True)
         ser.write(dataToSend3)
@@ -167,7 +163,7 @@ for trial in trials:
         radius = 15.0
         points_num = int(12*15)
         stm = FocusSTM.from_freq(5).add_foci_from_iter([
-                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 150])
+                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 255])
                 for i in range(points_num) #一方向に二回
             ]).with_loop_behavior(LoopBehavior.infinite()).with_segment(Segment.S1, update_segment=True)
 
@@ -183,7 +179,7 @@ for trial in trials:
         radius = 7.5
         points_num = int(12*7.5)
         stm = FocusSTM.from_freq(30).add_foci_from_iter([
-                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 150])
+                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 255])
                 for i in range(points_num) #一方向に二回
             ]).with_loop_behavior(LoopBehavior.infinite()).with_segment(Segment.S1, update_segment=True)
         
@@ -199,7 +195,7 @@ for trial in trials:
         radius = 15
         points_num = int(12*15)
         stm = FocusSTM.from_freq(30).add_foci_from_iter([
-                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 150])
+                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 255])
                 for i in range(points_num) #一方向に二回
             ]).with_loop_behavior(LoopBehavior.infinite()).with_segment(Segment.S1, update_segment=True)
 
