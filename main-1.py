@@ -70,7 +70,7 @@ g_off = Focus(center).with_intensity(0)
 
 
 # COMポートの設定
-ser = serial.Serial('COM7', 115200, timeout=1, bytesize=serial.EIGHTBITS, stopbits=serial.STOPBITS_ONE, parity=serial.PARITY_NONE)
+ser = serial.Serial('COM3', 115200, timeout=1, bytesize=serial.EIGHTBITS, stopbits=serial.STOPBITS_ONE, parity=serial.PARITY_NONE)
 
 if ser.isOpen():
     print("COM3 port found.")
@@ -98,11 +98,12 @@ ser.write(dataToSendRR)
 
 # メルセンヌ・ツイスター乱数生成器を初期化
 n = random.randrange(10)
+n=6
 random.seed(n)
 
 # trials配列を作成し、0から6までの値を規則的に埋め、その後シャッフルする
-trial_num =1 #25
-trial_num2 =1 #10
+trial_num =25 #25
+trial_num2 =10 #10
 trials = [0]*trial_num + [1]*trial_num + [2]*trial_num + [3]*trial_num + [4]*trial_num + [5]*trial_num + [6]*trial_num2
 random.shuffle(trials)
 stim_time = 0.5 #0.5

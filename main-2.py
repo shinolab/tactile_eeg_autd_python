@@ -39,8 +39,10 @@ m_s = Static()
 m = Static()
 
 center = np.array([AUTD3.device_width() -10.0, -10.0, 240.0])
-center = np.array([AUTD3.device_width()/2,AUTD3.device_width()/2,150])
+center = np.array([AUTD3.device_width()/2,AUTD3.device_width()/2,255])
+
 g = Focus( center).with_intensity(255).with_segment(Segment.S1, update_segment=True)
+g = Focus(autd.geometry.center+np.array([0,0,255])).with_intensity(255).with_segment(Segment.S1, update_segment=True)
 g_off = Focus(center).with_intensity(0).with_segment(Segment.S1, update_segment=True)
 
 name = input("日付を入力してください。\n >>> ")
@@ -60,6 +62,13 @@ trials2 = [0]*trial_num + [1]*trial_num + [2]*trial_num + [3]*trial_num + [4]*tr
 random.shuffle(trials2)
 
 answers = []
+
+img = cv2.imread("./exp_start.jpg", cv2.IMREAD_COLOR)
+cv2.imshow("Exp_window", img)
+cv2.waitKey(500)
+
+_ = input()
+
 for i, idx in enumerate(trials):
     print("starting in 3 seconds")
     img = cv2.imread("./exp_start.jpg", cv2.IMREAD_COLOR)
@@ -74,7 +83,7 @@ for i, idx in enumerate(trials):
         radius = 7.5
         points_num = int(12*7.5)
         stm = FocusSTM.from_freq(5).add_foci_from_iter([
-                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 150])
+                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 255])
                 for i in range(points_num) #一方向に二回
             ]).with_loop_behavior(LoopBehavior.infinite()).with_segment(Segment.S1, update_segment=True)
 
@@ -84,7 +93,7 @@ for i, idx in enumerate(trials):
         radius = 15.0
         points_num = int(12*15)
         stm = FocusSTM.from_freq(5).add_foci_from_iter([
-                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 150])
+                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 255])
                 for i in range(points_num) #一方向に二回
             ]).with_loop_behavior(LoopBehavior.infinite()).with_segment(Segment.S1, update_segment=True)
         
@@ -94,7 +103,7 @@ for i, idx in enumerate(trials):
         radius = 7.5
         points_num = int(12*7.5)
         stm = FocusSTM.from_freq(30).add_foci_from_iter([
-                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 150])
+                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 255])
                 for i in range(points_num) #一方向に二回
             ]).with_loop_behavior(LoopBehavior.infinite()).with_segment(Segment.S1, update_segment=True)     
     
@@ -103,7 +112,7 @@ for i, idx in enumerate(trials):
         radius = 15
         points_num = int(12*15)
         stm = FocusSTM.from_freq(30).add_foci_from_iter([
-                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 150])
+                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 255])
                 for i in range(points_num) #一方向に二回
             ]).with_loop_behavior(LoopBehavior.infinite()).with_segment(Segment.S1, update_segment=True)       
         autd.send(m_s, stm) 
@@ -135,7 +144,7 @@ for i, idx in enumerate(trials):
         hardness = input("硬さ\n >>> ")
         if hardness in ["1","2","3","4","5","6","7"]: break
         else: print("1から7の間の数字を入力せよ")   
-    cv2.destroyWindow("Exp_window")
+    #cv2.destroyWindow("Exp_window")
     trial_answer = []
     trial_answer.append(fine_r)
     trial_answer.append(macro_r)
@@ -165,7 +174,7 @@ for i, idx in enumerate(trials2):
         radius = 7.5
         points_num = int(12*7.5)
         stm = FocusSTM.from_freq(5).add_foci_from_iter([
-                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 150])
+                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 255])
                 for i in range(points_num) #一方向に二回
             ]).with_loop_behavior(LoopBehavior.infinite()).with_segment(Segment.S1, update_segment=True)
 
@@ -175,7 +184,7 @@ for i, idx in enumerate(trials2):
         radius = 15.0
         points_num = int(12*15)
         stm = FocusSTM.from_freq(5).add_foci_from_iter([
-                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 150])
+                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 255])
                 for i in range(points_num) #一方向に二回
             ]).with_loop_behavior(LoopBehavior.infinite()).with_segment(Segment.S1, update_segment=True)
         
@@ -185,7 +194,7 @@ for i, idx in enumerate(trials2):
         radius = 7.5
         points_num = int(12*7.5)
         stm = FocusSTM.from_freq(30).add_foci_from_iter([
-                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 150])
+                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 255])
                 for i in range(points_num) #一方向に二回
             ]).with_loop_behavior(LoopBehavior.infinite()).with_segment(Segment.S1, update_segment=True)     
     
@@ -194,7 +203,7 @@ for i, idx in enumerate(trials2):
         radius = 15
         points_num = int(12*15)
         stm = FocusSTM.from_freq(30).add_foci_from_iter([
-                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 150])
+                autd.geometry.center + np.array([radius*np.cos(2*np.pi*i/points_num), radius*np.sin(2*np.pi*i/points_num), 255])
                 for i in range(points_num) #一方向に二回
             ]).with_loop_behavior(LoopBehavior.infinite()).with_segment(Segment.S1, update_segment=True)       
         autd.send(m_s, stm) 
@@ -211,7 +220,7 @@ for i, idx in enumerate(trials2):
         else: print("1から7の間の数字を入力せよ")   
 
     while True:
-        img = cv2.imread("./pleseantnessness.jpg", cv2.IMREAD_COLOR)
+        img = cv2.imread("./pleseantness.jpg", cv2.IMREAD_COLOR)
         cv2.imshow("Exp_window", img)
         cv2.waitKey(500)
         pleasentness = input("心地よさ\n >>> ")
@@ -225,14 +234,14 @@ for i, idx in enumerate(trials2):
         strength = input("強さ\n >>> ")
         if strength in ["1","2","3","4","5","6","7"]: break
         else: print("1から7の間の数字を入力せよ")   
-    cv2.destroyWindow("Exp_window")
+    #cv2.destroyWindow("Exp_window")
     trial_answer2 = []
     trial_answer2.append(largeness)
     trial_answer2.append(pleasentness)
     trial_answer2.append(strength)
 
     answers2.append(trial_answer2)
-
+cv2.destroyWindow("Exp_window")
 paired_lists2 = list(zip(trials2, answers2))
 sorted_paired_lists2 = sorted(paired_lists2, key=lambda x: x[0])
 sorted_list3, sorted_list4 = zip(*sorted_paired_lists2)
